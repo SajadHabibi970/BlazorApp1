@@ -2,20 +2,18 @@
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
-
 <h1>Counter</h1>
 
-<p role="status">Current count: @currentCount</p>
+<p role="status">Current count: @currentCount</p> 
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<div>
+    <button class="btn @(currentCount > 0 ? "btn-success" : "btn-primary")" @onclick="IncrementCount">+1</button>
+    <button class="btn @(currentCount == 0 ? "btn-warning" : "btn-secondary")" @onclick="ResetCount">Reset to 0</button>
+    <button class="btn @(currentCount < 0 ? "btn-danger" : "btn-primary")" @onclick="DecrementCount">-1</button>
+</div>
 
-<!-- Ny knapp för att minska -->
-<button class="btn btn-primary" @onclick="DecrementCount">-1</button>
-
-<!-- Ny knapp för att återställa -->
-<button class="btn btn-primary" @onclick="ResetCount">Reset to 0</button>
-
-@code {
+@code
+{
     private int currentCount = 0;
 
     private void IncrementCount()

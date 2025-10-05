@@ -1,14 +1,17 @@
 @page "/todo"
+@rendermode InteractiveServer
 
 <PageTitle>Todo List</PageTitle>
 
 <h1>Todo List</h1>
 
+<!-- Input för att skriva nya todos -->
 <div>
     <input @bind="newTodo" placeholder="Skriv en todo..." />
     <button @onclick="AddTodo">Add</button>
 </div>
 
+<!-- Lista som visar alla todos -->
 <ul>
     @foreach (var todo in todos)
     {
@@ -20,23 +23,29 @@
 </ul>
 
 @code {
+    // Lista som sparar alla todos
     private List<TodoItem> todos = new();
+    
+    // Variabel för det man skriver i input
     private string newTodo = "";
 
+    // Metod för att lägga till ny todo
     private void AddTodo()
     {
         if (!string.IsNullOrWhiteSpace(newTodo))
         {
             todos.Add(new TodoItem { Text = newTodo });
-            newTodo = "";
+            newTodo = ""; // Rensa input efter tillägg
         }
     }
 
+    // Metod för att ta bort en todo
     private void RemoveTodo(TodoItem todo)
     {
         todos.Remove(todo);
     }
 
+    // Klass som representerar en todo
     private class TodoItem
     {
         public string Text { get; set; } = "";
